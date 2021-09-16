@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './categories_screen.dart';
+import './categories_meals_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,21 +13,27 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'DeliMeals',
       theme: ThemeData(
-        primaryColor: Colors.pink,
+        primarySwatch: Colors.pink,
+        accentColor: Colors.amber,
         canvasColor: Color.fromRGBO(255, 254, 229, 1),
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
-              bodyText1: TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
+              bodyText1: TextStyle(
+                color: Color.fromRGBO(20, 51, 51, 1),
+              ),
               bodyText2: TextStyle(
                 color: Color.fromRGBO(20, 51, 51, 1),
               ),
               subtitle1: TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'RobotoCondensed',
-                  fontWeight: FontWeight.bold),
-            ), colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: Colors.amber),
+                fontSize: 20,
+                fontFamily: 'RobotoCondensed',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
       ),
       home: CategoriesScreen(),
+      //comment 1 : routes is a property to make routes by name
+      routes: {'/category-meals': (ctx) => CategoriesMealsScreen()},
     );
   }
 }
