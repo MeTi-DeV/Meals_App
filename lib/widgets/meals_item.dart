@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/meals.dart';
 
-// comment 1 : define this widget for show summary of each item
 class MealsItem extends StatelessWidget {
   final String title;
   final String ImgUrl;
@@ -14,39 +13,125 @@ class MealsItem extends StatelessWidget {
       required this.duration,
       required this.complexity,
       required this.affordability});
+  String? get complexityTitle {
+    switch (complexity) {
+      case Complexity.Simple:
+        return 'Simple';
+      case Complexity.Challenging:
+        return 'Challenging';
+      case Complexity.Hard:
+        return 'Hard';
+      default:
+        'Unknown';
+    }
+  }
+
+  String? get affordabilityTitle {
+    switch (affordability) {
+      case Affordability.Affordable:
+        return 'Affordability';
+      case Affordability.Pricey:
+        return 'Pricey';
+      case Affordability.Luxurious:
+        return 'Expensive';
+      default:
+        'Unknown';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     void selectMeal() {}
-    return InkWell(
-      onTap: selectMeal,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Stack(
+    return Column(
+      children: [
+        InkWell(
+          onTap: selectMeal,
+          child: Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            margin: EdgeInsets.all(10),
+            child: Column(
               children: [
-                // comment 2 : use this widget to make  pleacement for image and meal title for later
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15)),
-                  //comment 3 : use network property to getting Url image from web
-                  child: Image.network(
-                    ImgUrl,
-                    height: 250,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15)),
+                      child: Image.network(
+                        ImgUrl,
+                        height: 250,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    //comment 1 : only in Stack we can define Positioned() class for change possition of our next elements on Stack
+                    Positioned(
+                      bottom: 20,
+                      right: 10,
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        width: 300,
+                        color: Colors.black54,
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 26,
+                            color: Colors.white,
+                            overflow: TextOverflow.fade,
+                          ),
+                          softWrap: true,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Row(
+                        children: [
+                          Text('$duration min'),
+                          SizedBox(
+                            width: 6,
+                          ),
+                          Icon(Icons.schedule)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(complexityTitle!),
+                          SizedBox(
+                            width: 6,
+                          ),
+                          Icon(Icons.done_all_sharp)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(affordabilityTitle!),
+                          SizedBox(
+                            width: 6,
+                          ),
+                          Icon(
+                            Icons.attach_money_rounded,
+                            size: 5,
+                          )
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
-            )
-          ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }
