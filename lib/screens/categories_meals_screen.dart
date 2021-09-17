@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './dummy_data.dart';
+import '../dummy_data.dart';
+import '../widgets/meals_item.dart';
 
 class CategoriesMealsScreen extends StatelessWidget {
   static const routeName = '/category-meals';
@@ -13,7 +14,6 @@ class CategoriesMealsScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     final categoryTitle = routeArgs['title'];
     final categoryId = routeArgs['id'];
-//comment 1 : split part of DUMMY_MEALS by categories id and use contains to flitter Meals by id
     final categoryMeals = DUMMY_MEALS.where((meals) {
       return meals.categories.contains(categoryId);
     }).toList();
@@ -24,7 +24,13 @@ class CategoriesMealsScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: categoryMeals.length,
         itemBuilder: (BuildContext context, int index) {
-          return Text(categoryMeals[index].title);
+          //comment 1 : pass DUMMY_MEALS data to MealsItem widget and use them
+          return MealsItem(
+              title: categoryMeals[index].title,
+              ImgUrl: categoryMeals[index].imageUrl,
+              duration: categoryMeals[index].duration,
+              complexity: categoryMeals[index].complexity,
+              affordability: categoryMeals[index].affordability);
         },
       ),
     );
