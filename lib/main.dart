@@ -33,7 +33,10 @@ class MyApp extends StatelessWidget {
       ),
       home: CategoriesScreen(),
       //comment 1 : routes is a property to make routes by name
-      routes: {'/category-meals': (ctx) => CategoriesMealsScreen()},
+      initialRoute: '/',
+      routes: {
+        CategoriesMealsScreen.routeName: (ctx) => CategoriesMealsScreen()
+      },
     );
   }
 }
