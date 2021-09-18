@@ -26,6 +26,7 @@ class CategoriesMealsScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           //comment 1 : pass DUMMY_MEALS data to MealsItem widget and use them
           return MealsItem(
+            id: categoryMeals[index].id,
               title: categoryMeals[index].title,
               ImgUrl: categoryMeals[index].imageUrl,
               duration: categoryMeals[index].duration,
