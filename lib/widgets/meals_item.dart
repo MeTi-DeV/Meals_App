@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/screens/meals_details_screen.dart';
 import '../models/meals.dart';
 
 class MealsItem extends StatelessWidget {
+  final String id;
   final String title;
   final String ImgUrl;
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
   MealsItem(
-      {required this.title,
+      {required this.id,
+      required this.title,
       required this.ImgUrl,
       required this.duration,
       required this.complexity,
@@ -41,11 +44,15 @@ class MealsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void selectMeal() {}
+    void selectMeal(BuildContext context) {
+      Navigator.of(context)
+          .pushNamed(MealsDetailsScreen.routeName, arguments: id);
+    }
+
     return Column(
       children: [
         InkWell(
-          onTap: selectMeal,
+          onTap: ()=>selectMeal(context),
           child: Card(
             elevation: 4,
             shape: RoundedRectangleBorder(
