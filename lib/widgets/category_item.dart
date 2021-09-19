@@ -7,8 +7,6 @@ class CategoryItem extends StatelessWidget {
 
   CategoryItem(this.title, this.color ,this.id);
   void SelectCategory(BuildContext ctx) {
-   //comment 1 : call our Route that created in main here
-   // arguments : is for define our arguments that we need use it and pass data to them
     Navigator.of(ctx).pushNamed('/category-meals', arguments: {'id':id , 'title':title}
     );
   }
