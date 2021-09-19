@@ -126,8 +126,8 @@ class MealsItem extends StatelessWidget {
                             width: 6,
                           ),
                           Icon(
-                            Icons.attach_money_rounded,
-                            size: 5,
+                            Icons.attach_money,
+                            
                           )
                         ],
                       ),
