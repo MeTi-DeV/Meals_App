@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import '../screens/filters_screen.dart';
 
-//comment 1 : create Drawer body here
 class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //comment 2 : split Drawer menues to a single Widget with arguments like title and icon tapHandler for change between pages Categories and filters_screen
     Widget buildTileList(String title, IconData icon, Function() tapHandler) {
       return ListTile(
         leading: Icon(
@@ -41,13 +39,11 @@ class MainDrawer extends StatelessWidget {
                   fontWeight: FontWeight.w900),
             ),
           ),
-          //comment 3 : use pushReplacementNamed because its better for catching of app
-          //if use pushNamed its so bad and stack pages top of each page and its make performance of app so slow
-          //after pass '/' as route of Meals item
+         
           buildTileList('Meals', Icons.restaurant, () {
             Navigator.of(context).pushReplacementNamed('/');
           }),
-//comment 4 : pass FiltersScreen route to 
+          
           buildTileList(
             'Filter',
             Icons.settings,

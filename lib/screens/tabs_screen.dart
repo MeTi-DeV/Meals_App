@@ -26,7 +26,6 @@ class _TabsScreenState extends State<TabsScreen> {
         title: Text(_pages[_selectedPageIndex]['title']),
      
       ),
-      //comment 1 : one of most import properties is drawer its make for us a hamburger menu
       drawer: Drawer(child: MainDrawer(),),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
