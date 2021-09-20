@@ -74,7 +74,6 @@ class MealsItem extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    //comment 1 : only in Stack we can define Positioned() class for change possition of our next elements on Stack
                     Positioned(
                       bottom: 20,
                       right: 10,
