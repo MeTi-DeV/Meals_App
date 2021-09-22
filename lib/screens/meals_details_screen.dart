@@ -2,16 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../dummy_data.dart';
 
-//comment 1 : create MealsDetailsScreen to show how do recipes
 class MealsDetailsScreen extends StatelessWidget {
   static const routeName = '/meals-screen-detais';
-
+  final Function toggleFaivories;
+  final Function isFavorite;
+  MealsDetailsScreen(this.toggleFaivories, this.isFavorite);
   @override
   Widget build(BuildContext context) {
     final mealId = ModalRoute.of(context)!.settings.arguments as String;
-    //comment 2 :MealSelected is for show each contents of the id
     final MealSelected = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
-    //comment 3 : split BuildSectionTitle to use for title of parts
     Widget BuildSectionTitle(String text) {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 10),
@@ -19,7 +18,6 @@ class MealsDetailsScreen extends StatelessWidget {
       );
     }
 
-//comment 4 : split buildContainer to use for both Steps and Ingredients as frame contents
     Widget buildContainer(Widget child) {
       return Container(
         padding: EdgeInsets.all(15),
@@ -91,6 +89,10 @@ class MealsDetailsScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => toggleFaivories(mealId),
+        child: Icon(isFavorite(mealId)?Icons.star :Icons.star_border),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-// comment 1 : create recipes page properties for each category
+
 enum Complexity { Simple, Challenging, Hard }
 enum Affordability { Affordable, Pricey, Luxurious }
 

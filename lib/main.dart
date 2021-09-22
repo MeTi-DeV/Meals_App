@@ -9,33 +9,25 @@ import '../models/meals.dart';
 void main() {
   runApp(MyApp());
 }
-//comment 1 : change main to statefulWidget because here is only place that we can pass data to FiltersScreen
+
 class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  //comment 2 : first define filters here
   Map<String, bool> _filters = {
     'gluten': false,
     'lactose': false,
     'vegan': false,
     'vegetarian': false
   };
-  //comment 5 : then we define a variable for put all DUMMY_MEALS data to itself
   List<Meal> _availableMeals = DUMMY_MEALS;
-  //comment 3 :second define filter seter Function this function have to has Map as arguments 
-  // to compare the user filter choosed and current available filters
+  List<Meal> _faivoritMeals = [];
   void _setFilter(Map<String, bool> filterData) {
-      //comment 4 : here we generate setState function
-       // and then compare _filters (default filters) and filterData (filters that user choosed)
     setState(() {
       _filters = filterData;
-      //comment 6 : after limited _availableMeals with all DUMMY_MEALS data with flters that user choosed and then pass this to CategoriesMealsScreen
       _availableMeals = DUMMY_MEALS.where((meal) {
-        //comment 7 : each if say : if _filters['...'] was true and meal.is... was true return false
-        //meaning dont show this categories
         if (_filters['gluten']! && !meal.isGlutenFree) {
           return false;
         }
@@ -50,6 +42,22 @@ class _MyAppState extends State<MyApp> {
         }
         return true;
       }).toList();
+    });
+  }
+
+  bool isFavorite(String id) {
+    return _faivoritMeals.any((meal)=> meal.id==id);
+  }
+
+  void _faivoritMealsToggle(String mealId) {
+    final existingIndex =
+        _faivoritMeals.indexWhere((meal) => meal.id == mealId);
+    setState(() {
+      if (existingIndex >= 0) {
+        _faivoritMeals.removeAt(existingIndex);
+      } else {
+        _faivoritMeals.add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
+      }
     });
   }
 
@@ -82,12 +90,12 @@ class _MyAppState extends State<MyApp> {
 
       initialRoute: '/',
       routes: {
-        '/': (ctx) => TabsScreen(),
-        //comment 8 :pass limited Meals to CategoriesMealsScreen
-        CategoriesMealsScreen.routeName: (ctx) => CategoriesMealsScreen(_availableMeals),
-        MealsDetailsScreen.routeName: (ctx) => MealsDetailsScreen(),
-        //comment 9 : _filters send for initState in FiltersScreen and _setFilter for filters handler
-        FiltersScreen.routeName: (ctx) => FiltersScreen(_filters,_setFilter),
+        '/': (ctx) => TabsScreen(_faivoritMeals),
+        CategoriesMealsScreen.routeName: (ctx) =>
+            CategoriesMealsScreen(_availableMeals),
+        MealsDetailsScreen.routeName: (ctx) =>
+            MealsDetailsScreen(_faivoritMealsToggle ,isFavorite),
+        FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, _setFilter),
       },
 
       // onGenerateRoute: (setting) {
